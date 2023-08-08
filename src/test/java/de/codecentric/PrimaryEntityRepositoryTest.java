@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,6 +38,7 @@ class PrimaryEntityRepositoryTest {
         final List<PrimaryEntity> primaryEntities = primaryEntityRepository.findByCategory("CAT1");
 
         assertThat(primaryEntities).hasSize(3);
+        assertThat(primaryEntities.stream().map(primaryEntity -> primaryEntity.getSecondaryEntity().getAdditionalData()).collect(Collectors.toSet())).contains("A", "B", "C");
         assertThat(stats.getQueryExecutionCount()).isOne();
         assertThat(stats.getEntityFetchCount()).isEqualTo(primaryEntities.size());
         assertThat(stats.getPrepareStatementCount()).isEqualTo(stats.getQueryExecutionCount() + stats.getEntityFetchCount());
@@ -47,6 +49,7 @@ class PrimaryEntityRepositoryTest {
         final List<PrimaryEntity> primaryEntities = primaryEntityRepository.findByCategoryJoinFetch("CAT1");
 
         assertThat(primaryEntities).hasSize(3);
+        assertThat(primaryEntities.stream().map(primaryEntity -> primaryEntity.getSecondaryEntity().getAdditionalData()).collect(Collectors.toSet())).contains("A", "B", "C");
         assertThat(stats.getQueryExecutionCount()).isOne();
         assertThat(stats.getEntityFetchCount()).isZero();
         assertThat(stats.getPrepareStatementCount()).isEqualTo(stats.getQueryExecutionCount() + stats.getEntityFetchCount());

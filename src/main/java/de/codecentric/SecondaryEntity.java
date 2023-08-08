@@ -9,4 +9,9 @@ public class SecondaryEntity {
     @Id
     private Long id;
 
+    private String additionalData;
+
+    public String getAdditionalData() {
+        return additionalData;
+    }
 }

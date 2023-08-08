@@ -13,4 +13,7 @@ public class PrimaryEntity {
     @OneToOne
     private SecondaryEntity secondaryEntity;
 
+    public SecondaryEntity getSecondaryEntity() {
+        return secondaryEntity;
+    }
 }

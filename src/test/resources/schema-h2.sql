@@ -7,7 +7,8 @@ CREATE TABLE primary_entity
 
 CREATE TABLE secondary_entity
 (
-    "ID" bigint NOT NULL
+    "ID"              bigint NOT NULL,
+    "ADDITIONAL_DATA" VARCHAR(255)
 );
 
 
